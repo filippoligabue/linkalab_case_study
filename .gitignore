@@ -1,0 +1,18 @@
+# Ambienti virtuali
+venv/
+env/
+.env
+
+# Dati (NON committare dati aziendali)
+data/
+*.csv
+*.xlsx
+*.db
+*.sqlite
+
+# Cache di Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
