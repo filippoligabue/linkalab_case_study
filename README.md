@@ -25,3 +25,57 @@ Tradotto in metriche ML, il sistema è vincolato a operare con un **False Positi
    ```bash
    python -m venv env
    source env/bin/activate  # Su Windows: env\Scripts\activate
+    ```
+
+## ⚙️ Installare le dipendenze:
+
+```
+pip install -r requirements.txt
+Scaricare il dataset Variant II della suite "Bank Account Fraud Dataset" (NeurIPS 2022) e posizionarlo nel percorso: data/raw/Variant II.csv.
+```
+
+🚀 Esecuzione
+1. Exploratory Data Analysis (EDA)
+Estrae insight dai dati e salva i grafici nella cartella plots/eda/.
+
+```
+python exploratory_data_analysis.py
+```
+2. Training dei Modelli ed Estrazione Metriche
+Avvia la pipeline di pulizia, addestra i modelli e calcola la metrica di business ricalibrando le soglie. Salva la feature importance del modello vincente in plots/models/.
+
+```
+python fraud_detection_training.py
+```
+Risultati Ottenuti (Test Set: Mesi 6-7):
+Tutti i modelli testati hanno superato il sistema a regole precedente (0.12%), rispettando il blocco a 500 chiamate/giorno. Il modello vincente è CatBoost Cost-Sensitive:
+
+Soglia Decisionale Ricalibrata: 0.9684
+
+Falsi Positivi Generati: 504
+
+Frodi Bloccate (Veri Positivi): 332
+
+Recall Reale: 11.54%
+
+Efficienza Complessiva: 0.1619% 🏆
+
+3. Test Unitari
+Per validare la robustezza delle funzioni di Feature Engineering:
+
+```
+pytest test_pipeline.py -v
+```
+4. Monitoraggio del Data Drift (Bonus)
+Simula un monitoraggio mensile per verificare alterazioni nei dati in ingresso (es. variazioni causate dal nuovo core banking), confrontando il traffico live (Mese 7) con la baseline (Mesi 0-6).
+
+```
+python data_drift_monitor.py
+```
+L'esecuzione attuale segnala correttamente un Drift statistico significativo sui valori redditizi e di età, confermando la necessità di procedure di re-training.
+
+Per eseguire questo specifico servizio di monitoraggio in modo isolato tramite Docker:
+
+```
+docker-compose up --build
+```
