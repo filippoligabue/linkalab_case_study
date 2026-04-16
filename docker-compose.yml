@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  drift-monitor:
+    build: .
+    container_name: securebank-drift-monitor
+    # Montiamo la cartella locale 'data' all'interno del container in sola lettura (ro)
+    volumes:
+      - ./data:/app/data:ro
+    # Assicuriamoci che esegua il file rinominato
+    command: python data_drift_monitor.py

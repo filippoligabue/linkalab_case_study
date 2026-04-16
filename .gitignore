@@ -9,6 +9,7 @@ data/
 *.xlsx
 *.db
 *.sqlite
+*.png
 
 # Cache di Python
 __pycache__/
@@ -16,3 +17,5 @@ __pycache__/
 
 # Jupyter
 .ipynb_checkpoints/
+# notebooks
+notebooks/*

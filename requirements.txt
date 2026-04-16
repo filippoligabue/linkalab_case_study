@@ -10,3 +10,4 @@ jupyter
 xgboost
 catboost
 statsmodels
+pytest
